@@ -7,7 +7,6 @@ import java.util.PriorityQueue;
 public class Kthlargest {
 	public static void main(String[] args) {
 		Integer[] arr= {10,10,20,12,9,22,6,6,6,8,25,44,4,4,4,4,4};
-		//Integer[] arr= {100,100,100,100,100,102};
 		int k=6;
 		System.out.println("Kth largest element is : "+kthLargest(arr, k));
 		sortEle(arr);
