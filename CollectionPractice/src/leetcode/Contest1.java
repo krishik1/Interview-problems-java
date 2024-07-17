@@ -26,7 +26,7 @@ public class Contest1 {
 	        }
 	        return val;
 	    }
-	   
+	   /**/
 	    public static int getMin(int[] coins){
 	        int min=Integer.MAX_VALUE;
 	        for(int i=0;i<coins.length;i++){
