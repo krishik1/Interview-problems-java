@@ -1,0 +1,157 @@
+Regular expression :
+1. . - Any Character Except New Line
+Explanation: Matches any single character except for a newline (\n).
+Example:
+Regex: a.c
+String: abc, a_c, a1c
+Matches: The above strings because . can be any character like b, _, or 1.
+Doesn't Match: ac (since there's no character between a and c), a\nc (since . doesn't match a newline).
+------------------------------------------------------------------------------------------------------------------------
+2. \d - Digit (0-9)
+Explanation: Matches any single digit character (0 through 9).
+Example:
+Regex: \d\d
+String: 12, 98
+Matches: 12, 98
+Doesn't Match: 1a, ab (since there are no two consecutive digits).
+-------------------------------------------------------------------------------------------------------------------------
+3. \D - Not a Digit (0-9)
+Explanation: Matches any character that is not a digit.
+Example:
+Regex: \D\D
+String: ab, !@
+Matches: ab, !@
+Doesn't Match: a1, 12 (since these contain digits).
+--------------------------------------------------------------------------------------------------------------------------
+4. \w - Word Character (a-z, A-Z, 0-9, _)
+Explanation: Matches any alphanumeric character or underscore (). It's equivalent to [a-zA-Z0-9].
+Example:
+Regex: \w\w
+String: a1, b_
+Matches: a1, b_
+Doesn't Match: a!, @ (since ! and are not word characters).
+-------------------------------------------------------------------------------------------------------------------------
+5. \W - Not a Word Character
+Explanation: Matches any character that is not a word character (not a-z, A-Z, 0-9, _).
+Example:
+Regex: \W\W
+String: !@, #$
+Matches: !@, #$ 
+Doesn't Match: a1, b_ (since these contain word characters).
+-----------------------------------------------------------------------------------------------------------------------
+6. \s - Whitespace (space, tab, newline)
+Explanation: Matches any whitespace character, including spaces, tabs, and newlines.
+Example:
+Regex: \s\s
+String: (two spaces), \t (tab followed by space)
+Matches: The above strings with two whitespace characters.
+Doesn't Match: a b (since there's only one space between a and b), ab (no space at all).
+---------------------------------------------------------------------------------------------------------------------------
+7. \S - Not Whitespace
+Explanation: Matches any character that is not a whitespace character.
+Example:
+Regex: \S\S
+String: ab, !@
+Matches: ab, !@
+Doesn't Match: a , b (since these contain a whitespace character).
+Putting It All Together:
+------------------------------------------------------------------------------------------------------------------------------
+8. Let's combine some of these to form a more complex example.
+Regex: \d\w\s\S
+Explanation: This matches a digit followed by a word character, followed by a whitespace, followed by a non-whitespace.
+String: 3a b
+Matches: The above string because 3 is a digit (\d), a is a word character (\w), is a whitespace (\s), and b is a non-whitespace (\S).
+---------------------------------------------------------------------------------------------------------------------------------------
+II.Word Boundary (\b) and Not a Word Boundary (\B)
+
+1. \b matches a position where a word character (\w like letters, digits, and underscores) is followed or preceded by a non-word character (\W).
+
+Example: \bcat\b matches "cat" as a whole word, but not "category" or "bobcat".
+"cat" → Match
+"bobcat" → No match
+"category" → No match
+
+2.\B is the opposite; it matches a position where there is not a word boundary.
+
+Example: \Bcat matches "category" but not "cat" as a standalone word.
+"cat" → No match
+"bobcat" → Match (inside the word)
+"category" → Match (inside the word)
+-----------------------------------------------------------------------------------------------------------------------------------------------
+Beginning of a String (^) and End of a String ($)
+3. ^ matches the start of a string.
+
+Example: ^cat matches "cat" only if it's at the beginning of the string.
+"cat in the hat" → Match
+"the cat" → No match
+4. $ matches the end of a string.
+
+Example: cat$ matches "cat" only if it's at the end of the string.
+"the cat" → Match
+"cat in the hat" → No match
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Brackets ([]) and Negation ([^])
+5. [ ] matches any one of the characters inside the brackets.
+
+Example: [abc] matches either "a", "b", or "c".
+"apple" → Match ("a")
+"banana" → Match ("a", "b")
+"grape" → Match ("a")
+6. [^ ] matches any character not inside the brackets.
+
+Example: [^abc] matches any character except "a", "b", or "c".
+"dog" → Match
+"apple" → No match (because "a" matches)
+"xyz" → Match
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+Alternation (|) and Grouping (( ))
+7. | is the "or" operator, matching either the left or right expression.
+
+Example: cat|dog matches "cat" or "dog".
+"I have a cat" → Match
+"I have a dog" → Match
+"I have a rabbit" → No match
+8. ( ) groups parts of the pattern.
+
+Example: gr(e|a)y matches "grey" or "gray".
+"grey" → Match
+"gray" → Match
+"greyy" → No match
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+III. Quantifiers
+1. * (0 or more): Matches 0 or more occurrences of the preceding character.
+
+Example: a* matches any number of "a"s.
+"aaab" → Match
+"b" → Match (0 "a"s)
+"aaaa" → Match
+------------------------------------------------------------------------------------------------------
+2. + (1 or more): Matches 1 or more occurrences of the preceding character.
+
+Example: a+ matches 1 or more "a"s.
+"aaab" → Match
+"b" → No match (0 "a"s)
+"aaaa" → Match
+------------------------------------------------------------------------------------------------------
+3. ? (0 or one): Matches 0 or 1 occurrence of the preceding character.
+
+Example: a?b matches "b" or "ab".
+"ab" → Match
+"b" → Match
+"aab" → No match
+------------------------------------------------------------------------------------------------------
+4. {n} (Exact Number): Matches exactly n occurrences of the preceding character.
+
+Example: a{3} matches exactly 3 "a"s.
+"aaa" → Match
+"aa" → No match (fewer than 3 "a"s)
+"aaaa" → No match (more than 3 "a"s)
+------------------------------------------------------------------------------------------------------
+5. {n,m} (Range of Numbers): Matches between n and m occurrences of the preceding character.
+
+Example: a{2,4} matches 2 to 4 "a"s.
+"aa" → Match
+"aaa" → Match
+"aaaa" → Match
+"a" → No match (fewer than 2 "a"s)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
