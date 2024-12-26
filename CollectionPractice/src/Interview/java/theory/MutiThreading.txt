@@ -1,0 +1,78 @@
+1. Mutithreading : it is the ability of cpu to utilize multiple threads independently at the same time but share the process resources simultenously.It is a Java feature where one can subdivide the specific program into two or more threads to make the execution of the program fast and easy.
+---------------------------------------------------------------------------
+2.What is the start() and run() method of Thread class?
+start() :The start() method is used to start or begin the execution of a newly created thread. When the start() method is called, a new thread is created and this newly created thread executes the task that is kept in the run() method. One can call the start() method only once.  
+
+run() :The run() method is used to start or begin the execution of the same thread. When the run() method is called, no new thread is created as in the case of the start() method. This method is executed by the current thread. One can call the run() method multiple times. 
+---------------------------------------------------------------------------
+3.Thread : Threads are basically the lightweight and smallest unit of processing that can be managed independently by a scheduler.They share the common address space and are independent of each other. it is considered the simplest way to take advantage of multiple CPUs available in a machine.
+
+- What are the multiple ways of implementing thread in Java?
+1.Using Thread class,
+2.Using Runnable or Callable interface,
+3.Using Executor Service
+Runnable Interface									Callable Interface 
+It does not return any result and therefore, cannot throw a checked exception. 	It returns a result and therefore, can throw an exception.
+It cannot be passed to invokeAll method. 					It can be passed to invokeAll method.
+It was introduced in JDK 1.0.							It was introduced in JDK 5.0, so one cannot use it before Java 5. 
+It simply belongs to Java.lang.							It simply belongs to java.util.concurrent. 
+It uses the run() method to define a task.					It uses the call() method to define a task. 
+To use this interface, one needs to override the run() method. 			To use this interface, one needs to override the call() method.
+---------------------------------------------------------------------------
+Thread: It simply refers to the smallest units of the particular process. It has the ability to execute different parts (referred to as thread) of the program at the same time.  
+
+Process: It simply refers to a program that is in execution i.e., an active program. A process can be handled using PCB (Process Control Block). 
+
+---------------------------------------------------------------------------
+
+5. What’s the difference between class lock and object lock?
+Class Lock: In java, each and every class has a unique lock usually referred to as a class level lock. These locks are achieved using the keyword ‘static synchronized’ and can be used to make static data thread-safe. It is generally used when one wants to prevent multiple threads from entering a synchronized block
+
+Object Lock: In java, each and every object has a unique lock usually referred to as an object-level lock. These locks are achieved using the keyword ‘synchronized’ and can be used to protect non-static data. It is generally used when one wants to synchronize a non-static method or block so that only the thread will be able to execute the code block on a given instance of the class.  
+---------------------------------------------------------------------------
+6. Daemon Threads : In Java , a daemon thread is a low priority thread that runs in the background to perform specific tasks like garbage collection,monitoring,housekkeping duties etc. they basically provide general services in the background while programs is running. when user threads are finished, the jvm terminates the program including ay remaining demon thread.You can set a thread as daemon by using the setDaemon(true) method before starting the thread.
+ There are basically two methods available in thread class for daemon thread: setDaemon() and isDaemon().  
+--------------------------------------------------------------------------------
+9. What’s the difference between notify() and notifyAll()?
+notify(): It sends a notification and wakes up only a single thread instead of multiple threads that are waiting on the object’s monitor.
+
+notifyAll(): It sends notifications and wakes up all threads and allows them to compete for the object's monitor instead of a single thread. 
+---------------------------------------------------------------------------
+10. Why wait(), notify(), and notifyAll() methods are present in Object class?
+A. we know that every object has a moniter that allows thread to hold a lock on the object. But the thread class doesnot have a moniter. Threads usually waits for object moniter(lock) by using wait() method and notify other threads that are waiting for same lock using notify(),notifyAll(). therefore,these 3 methods are called on objects only and allow them to communicate with each that are created on the object. 
+---------------------------------------------------------------------------------
+12. What are the benefits of using Multithreading?
+There are various benefits of multithreading as given below:
+
+Allow the program to run continuously even if a part of it is blocked. 
+Improve performance as compared to traditional parallel programs that use multiple processes. 
+Allows to write effective programs that utilize maximum CPU time
+Improves the responsiveness of complex applications or programs. 
+Increase use of CPU resources and reduce costs of maintenance. 
+Saves time and parallelism tasks. 
+If an exception occurs in a single thread, it will not affect other threads as threads are independent. 
+Less resource-intensive than executing multiple processes at the same time. 
+--------------------------------------------------------------------------------------
+13.How do threads communicate with each other?
+Threads can communicate using three methods i.e., wait(), notify(), and notifyAll().
+
+--------------------------------
+14. What is the ExecutorService interface?
+ExecutorService interface is basically a sub-interface of Executor interface with some additional methods or features that help in managing and controlling the execution of threads. It enables us to execute tasks asynchronously on threads.
+---------------------------------------------
+15.Explain thread priority.
+Thread priority simply means that threads with the highest priority will get a chance for execution prior to low-priority threads. One can specify the priority but it's not necessary that the highest priority thread will get executed before the lower-priority thread. Thread scheduler assigns processor to thread on the basis of thread priority. The range of priority changes between 1-10 from lowest priority to highest priority. 
+
+-------------------------------------------
+16. I.CountDownLatch : This is used when we need  one or more threads to wait until the set of operations being performed by the other threads complete. once the latch comes to zero all the waiting threads are released.
+    II.Cyclic Barrier : This is used when need a group of threads to wait in order to reach a common barrier point before continuing execution. once all threads reach this point , the barrier is reset. making reusable(cyclic).
+-----------------------------------------------
+17. I.Join() : This method generally is used to pause the execution of current thread until the specified thread on which join is called is dead or completed.
+
+   II.isAlive() : This method used to check wheter the cureent thred is alive or not.
+
+    III.Yield() : It's typically used to give other threads of the same priority a chance to execute. However, it doesn't guarantee that the thread will stop running; it merely indicates that the current thread is willing to relinquish its hold on the CPU.
+------------------------------------------------
+18. Thread pool : it is a collection of ready-made threads which is existing to excute our task. we can achieve this by using executor framework. 
+----------------------------------------------
+19. Volatile : The volatile keyword in Java is used to indicate that a variable's value may be modified by multiple threads. Declaring a variable as volatile ensures that changes to the variable are immediately visible to all threads. This is crucial for ensuring proper synchronization and visibility in multithreaded programs.  

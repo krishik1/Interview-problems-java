@@ -1,0 +1,24 @@
+1.What is Kafka?
+A. Kafka is a highly reliable and distributed system which offers high throughput and great performance. it is a opensource software with pub-sub messaging system and a robust queue that can efficently manage high volume of streaming data fromm its source to destination.
+
+Kafka is used to achieve High Throughput,Scalability,Durability and Fault Tolerance,Real-Time Processing,Real-Time Processing.
+
+Following are the key concepts in Kafka:
+
+Publisher - A publisher pushes messages to the queue. These messages are the actions that need to be processed such as placing an order.
+Subscriber - A subscriber is a consumer that pulls messages from the queue. These messages are the actions that need to be processed such as sending an email, sending a notification, updating the inventory, etc.
+Topics - A topic is a category or feed name to which messages are published. Topics help us segregate messages based on the type of action that needs to be performed. For example, we can have a topic for sending emails, a topic for sending notifications, a topic for updating the inventory, etc.
+Broker - A broker is a server that runs as part of a Kafka cluster. It stores the messages in the queue. It also provides APIs to publish and consume messages.
+ZooKeeper: Used by Kafka to manage and coordinate the brokers. (Note: Kafka is moving away from ZooKeeper to its own built-in consensus protocol.)
+
+2.Features of kafka :
+1.High Throughput,
+2.Scalability,
+3.Durability, 
+4.Fault Tolerance,
+5.Reliability,
+6. Distributed Architecture
+7. Real-Time Processing,
+8.Persistence,
+9.Stream Processing,
+10. Topic Partitioning
