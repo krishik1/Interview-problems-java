@@ -1,0 +1,134 @@
+1. Why do we need synchronized ArrayList when we have Vectors (which are synchronized) in Java?
+A.Following are the reasons why we need synchronized ArrayLists even though we have Vectors :
+
+Vector is slightly slower than ArrayList due to the fact that it is synchronized and thread-safe.
+Vector's functionality is that it synchronizes each individual action. A programmer's preference is to synchronize an entire sequence of actions. Individual operations are less safe and take longer to synchronize.
+Vectors are considered outdated in Java and have been unofficially deprecated. Vector also synchronizes on a per-operation basis, which is almost never done. Most java programmers prefer to use ArrayList since they will almost certainly synchronize the arrayList explicitly if they need to do so.
+---------------------------------------------------------------------------
+2. What do you understand about BlockingQueue in Java?
+A.BlockingQueue is an interface that has been included along with a number of other concurrent Utility classes such as ConcurrentHashMap, Counting Semaphore, CopyOnWriteArrayList, and so on. In addition to queueing, the BlockingQueue interface enables flow control by adding blocking if either BlockingQueue is full or empty. 
+
+A thread attempting to enqueue an element in a full queue will be blocked until another thread clears the queue, either by dequeuing one or more elements or by clearing the queue entirely. It also prevents a thread from deleting from an empty queue until another thread inserts an item. A null value is not accepted by BlockingQueue. Implementations of the Java BlockingQueue interface are thread-safe. BlockingQueue's methods are all atomic and use internal locks or other forms of concurrency management.
+
+
+There are two types of BlockingQueue in Java. They are as follows :
+
+Unbounded Queue: The blocked queue's capacity will be set to Integer. MAX VALUE. An unbounded blocking queue will never block since it has the potential to grow to a very big size. As you add more pieces, the size of the queue grows.
+
+Example :
+
+BlockingQueue unbounded_queue = new LinkedBlockingDeque();
+Bounded Queue: The bounded queue is the second type of queue. In the case of a bounded queue, the capacity of the queue can be passed to the constructor when the blocking queue is created.
+
+Example:
+
+// Creates a Blocking Queue with capacity 10
+BlockingQueue bounded_queue = new LinkedBlockingDeque(10);
+----------------------------------------------------------------------------------------------------
+3. Explain fail-fast and fail-safe iterators. Differentiate between them.
+A.If the collection's structure is changed, Fail-Fast iterators immediately throw ConcurrentModificationException. While a thread is iterating over a collection, structural alteration includes adding or deleting any element. Fail-FastIterator classes include ArrayList Iterator and HashMap Iterator. Fail-fast iterators use an internal indicator called modCount, which is updated each time a collection is modified, to determine if the collection has been structurally modified or not. When a fail-fast iterator gets the next item (through the next() method), it checks the modCount flag, and if it discovers that the modCount has been changed after the iterator was generated, it throws a ConcurrentModificationException.
+
+If a collection is structurally updated while iterating over it, fail-safe iterators don't throw any exceptions. Because they operate on a clone of the collection rather than the original collection, they are referred to as fail-safe iterators. Fail-safe Iterators include the CopyOnWriteArrayList and ConcurrentHashMap classes.
+----------------------------------------------------------------------------------------------------
+4. What is the purpose of RandomAccess Interface? Name a collection type which implements this interface.
+A.RandomAccess, like the Serializable and Cloneable interfaces, is a marker interface. There are no methods defined in any of these marker interfaces. Rather, they designate a class as having a specific capability. 
+
+The RandomAccess interface indicates whether or not a given java.util.List implementation supports random access. This interface seeks to define a vague concept: what does it mean to be fast? A simple guide is provided in the documentation: The List has fast random access if repeated access using the List.get( ) method is faster than repeated access using the Iterator.next( ) method.
+-----------------------------------------------------------------------------------------------------
+5. Differentiate between Iterator and Enumeration.
+A.Iterator: Because it can be applied to any Collection object, it is a universal iterator. We can execute both read and remove operations using Iterator. It's an enhanced version of Enumeration that adds the ability to remove an element from the list.
+
+Enumeration: An enumeration (or enum) is a data type that is defined by the user. It's mostly used to give integral constants names, which make a program easier to comprehend and maintain. Enums are represented in Java (since 1.5) through the enum data type.
+--------------------------------------------------------------------------------------------------------
+6.7. Differentiate between HashMap and HashTable.
+A.1.HashMap is a non-synchronized data structure. It is not thread-safe and cannot be shared across many threads without the use of synchronization code, while Hashtable is synchronized. It's thread-safe and can be used by several threads.
+2.HashMap supports one null key and numerous null values, whereas Hashtable does not.
+3.If thread synchronization is not required, HashMap is often preferable over HashTable
+---------------------------------------------------------------------------------------------------------
+8. Why does HashMap allow null whereas HashTable does not allow null?
+The objects used as keys must implement the hashCode and equals methods in order to successfully save and retrieve objects from a HashTable. These methods cannot be implemented by null because it is not an object. HashMap is a more advanced and improved variant of Hashtable.HashMap was invented after HashTable to overcome the shortcomings of HashTable.
+
+9. How can you synchronize an ArrayList in Java?
+An ArrayList can be synchronized using the following two ways :
+
+Using Collections.synchronizedList() method:
+All access to the backup list must be done through the returning list in order to perform serial access. When iterating over the returned list, it is critical that the user manually synchronizes.
+Example:
+import java.util.*;
+ 
+class InterviewBit
+{
+   public static void main (String[] args)
+   {
+       List<String> synchronized_list =
+          Collections.synchronizedList(new ArrayList<String>());
+ 
+       synchronized_list.add("learn");
+       synchronized_list.add("practice");
+       synchronized_list.add("solve");
+       synchronized_list.add("interview");
+       
+       synchronized(synchronized_list)// must be declared
+       {
+          
+           Iterator it = synchronized_list.iterator();
+ 
+           while (it.hasNext())
+               System.out.println(it.next());
+       }
+   }
+}
+
+Using CopyOnWriteArrayList:
+Syntax:
+
+CopyOnWriteArrayList<T> list_name = new CopyOnWriteArrayList<T>();
+Here, a thread-safe variant of ArrayList is created. T represents generic.
+
+All mutative actions (e.g. add, set, remove, etc.) are implemented by generating a separate copy of the underlying array in this thread-safe variation of ArrayList. It accomplishes thread safety by generating a second copy of List, which differs from how vectors and other collections achieve thread-safety.
+
+Even if copyOnWriteArrayList is modified after an iterator is formed, the iterator does not raise ConcurrentModificationException because the iterator is iterating over a separate copy of ArrayList while a write operation is occurring on another copy of ArrayList.
+Example:
+import java.io.*;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
+ 
+class InterviewBit
+{
+   public static void main (String[] args)
+   {
+      
+       CopyOnWriteArrayList<String> synchronized_list
+           = new CopyOnWriteArrayList<String>();// creating a thread-safe Arraylist.
+ 
+       // Adding strings to the synchronized ArrayList
+       synchronized_list.add("learn");
+       synchronized_list.add("practice");
+       synchronized_list.add("solve");
+       synchronized_list.add("interview");
+ 
+       System.out.println("The synchronized ArrayList has the following elements :");
+ 
+       // Iterating on the synchronized ArrayList using an iterator.
+       Iterator<String> it = synchronized_list.iterator();
+ 
+       while (it.hasNext())
+           System.out.println(it.next());
+   }
+}
+------------------------------------------------------------------------------------
+9.Differentiate between Comparable and Comparator in the context of Java.
+A.Comparable: Used for natural ordering; the class itself implements the interface. The comparison logic is inside the class.
+
+Comparator: Used for custom ordering; a separate class implements the interface. The comparison logic is outside the class, allowing for multiple sorting criteria.
+------------------------------------------------------------------------------------
+10.Differentiate between HashMap and TreeMap in the context of Java.
+A.HashMap	TreeMap
+The Java HashMap implementation of the Map interface is based on hash tables.	Java TreeMap is a Map interface implementation based on a Tree structure.
+The Map, Cloneable, and Serializable interfaces are implemented by HashMap.	NavigableMap, Cloneable, and Serializable interfaces are implemented by TreeMap.
+Because HashMap does not order on keys, it allows for heterogeneous elements.	Because of the sorting, TreeMap allows homogenous values to be used as a key.
+HashMap is quicker than TreeMap because it offers O(1) constant-time performance for basic operations such as to get() and put().	TreeMap is slower than HashMap because it performs most operations with O(log(n)) performance, such as add(), remove(), and contains().
+A single null key and numerous null values are allowed in HashMap.	TreeMap does not allow null keys, however multiple null values are allowed.
+To compare keys, it uses the Object class's equals() method. It is overridden by the Map class's equals() function.	It compares keys using the compareTo() method.
+HashMap does not keep track of any sort of order.	The elements are arranged in chronological sequence (ascending).
+When we don't need a sorted key-value pair, we should use the HashMap. 	When we need a key-value pair in sorted (ascending) order, we should use the TreeMap.
