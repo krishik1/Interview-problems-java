@@ -1,0 +1,37 @@
+Notes:  
+Here’s a high-level overview of an Absa Bank project based on the technologies and methodologies you've mentioned:
+
+1. Architecture: 3-Tier Architecture
+The project is structured in a 3-tier architecture:
+Presentation Layer: This could be a web or mobile interface where users interact with banking services.
+Business Logic Layer: Implemented with microservices, this layer contains the core functionality of banking operations such as transaction processing, account management, and authentication.
+Data Layer: Typically interacts with databases that store customer information, transaction history, and other vital data securely.
+2. Microservices-Based Approach
+The project leverages a microservices architecture to ensure modularity, scalability, and ease of deployment. Each service is designed to handle specific functionalities (e.g., payments, loans, customer management) independently, allowing for easier maintenance and updates.
+These microservices communicate with each other via APIs, ensuring seamless integration and high availability.
+3. MicroProfile Integration
+MicroProfile is used for building cloud-native Java microservices. It offers essential features like fault tolerance, health checks, metrics, and more to ensure the services are reliable and robust.
+This framework is especially useful for enabling fast deployment and scalability in a cloud environment.
+4. OpenShift for Containerization and Orchestration
+OpenShift, a Kubernetes-based platform, is employed for containerization, continuous deployment, and orchestration of the microservices.
+It ensures that the project’s applications are easily scalable and managed effectively in the cloud. OpenShift also provides CI/CD pipelines for automating deployment and managing versioning through GitHub.
+5. GitHub for Version Control
+GitHub is used as the version control system for managing code repositories, enabling collaborative development, branching, and pull requests.
+It integrates with OpenShift pipelines, facilitating seamless code deployments and collaboration across development teams.
+6. Agile Methodology
+The team follows Agile methodology, working in iterative sprints to deliver incremental updates. Regular sprint planning, daily stand-ups, and sprint reviews are part of the workflow.
+This allows for flexibility and continuous feedback, ensuring the project meets evolving business requirements efficiently.
+Summary:
+The project’s design leverages a 3-tier architecture with microservices built on MicroProfile and deployed on OpenShift. GitHub supports version control and collaboration, while Agile practices ensure efficient, iterative development. This setup enhances scalability, modularity, and rapid deployment, making it ideal for modern banking solutions at Absa.
+
+
+
+
+
+
+
+
+
+
+
+ChatGPT can make mistakes. Check important info.
