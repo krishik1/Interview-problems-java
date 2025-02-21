@@ -18,37 +18,30 @@ public class Employee {
 		company = builder.company;
 
 	}
-	
 
 	public String getName() {
 		return name;
 	}
 
-
 	public int getAge() {
 		return age;
 	}
-
 
 	public double getSalary() {
 		return salary;
 	}
 
-
 	public String getDepartment() {
 		return department;
 	}
-
 
 	public String getRole() {
 		return role;
 	}
 
-
 	public String getCompany() {
 		return company;
 	}
-
 
 	@Override
 	public String toString() {
@@ -67,7 +60,7 @@ public class Employee {
 		private boolean isDeliverd;
 		private long timestamp;
 		private MessageType messageType;
-		
+
 		public void setTimestamp(long timestamp) {
 			this.timestamp = timestamp;
 		}
