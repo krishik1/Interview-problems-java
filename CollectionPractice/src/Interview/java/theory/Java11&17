@@ -1,0 +1,154 @@
+New Features of Java 11 :
+1. Introduced var datatype in lambdas.
+-------------------------------------------------------------------------------------------
+2.String enhancements :
+->.isBlank()
+->.lines() 
+->.strip()
+->.repeat(5)
+eg :
+public class StringMethodsExample {
+    public static void main(String[] args) {
+        String str = " ";
+        System.out.println(str.isBlank()); // true
+
+        String text = "Hello\nWorld\nJava";
+        text.lines().forEach(System.out::println); // Splits by line breaks
+
+        String stripped = "  hello  ".strip();
+        System.out.println(stripped); // "hello"
+
+        System.out.println("-".repeat(5)); // "-----"
+    }
+}
+-------------------------------------------------------------------------------------------
+3.New File Api Methods :
+->Path.of(str,...)
+->Files.writeString()
+->Files.readString()
+
+eg:
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class FileMethodsExample {
+    public static void main(String[] args) throws Exception {
+        Path path = Files.writeString(Files.createTempFile("demo", ".txt"), "Java 11 Features");
+        String content = Files.readString(path);
+        System.out.println(content);
+    }
+}
+-------------------------------------------------------------------------------------------
+4.HttpClient API (Standardized) :
+The HttpClient API enhances efficiency, supports modern protocols, and allows both synchronous and asynchronous programming. It’s now the go-to solution for HTTP communication in Java.
+eg:
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.URI;
+
+public class HttpClientExample {
+    public static void main(String[] args) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://postman-echo.com/get"))
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+    }
+}
+---------------------------------------------------------------------------------------------
+ZGC (Z Garbage Collector): it is low latency and high scalable gc which is designed for applications requiring sub-millisecond pause time even for large heaps up to 16TB.
+Key features:
+Low Latency: Pause times are typically sub-millisecond.
+Scalability: Works well with large heaps (from MBs to TBs).
+Concurrent Compaction: Performs most of its work concurrently without stopping the application.
+No Full GC Pauses: Unlike G1 or Parallel GC, it avoids long stop-the-world (STW) pauses.
+Conclusion
+ZGC is a great choice for low-latency, large-memory applications, especially in high-performance microservices and financial/trading systems where GC pauses must be minimal.
+----------------------------------------------------------------
+
+JAVA 17 Feature :::
+1. Sealed Classes : This clas restriction is in between abstract and final class.
+Sealed classes in Java restrict which classes can extend them, providing better control over inheritance. They are useful when designing strict class hierarchies, ensuring only a predefined set of subclasses can extend a given class.
+ Rules for Subclasses
+Permitted subclasses must be one of the following:
+
+final class → No further subclassing. ✅
+sealed class → Further restricted hierarchy. ✅
+non-sealed class → Allows unrestricted inheritance. ✅
+ ex:
+ // Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+import java.util.*;
+
+class Main {
+   public static void main(String[] args) {
+       Animal animal = new Lion();
+       animal.makeSound();
+   }
+}
+sealed abstract class Animal permits Dog,Lion{
+    Animal() { }  
+    abstract void makeSound();
+}
+
+final class Dog extends Animal {
+    public void makeSound() {
+        System.out.println("Dog Barks .");
+    }
+}
+final class Lion extends Animal {
+    public void makeSound() {
+        System.out.println("Lion Roars .");
+    }
+}
+// class Penguin extends Animal {
+//     public void makeSound() {
+//         System.out.println("Penguin Quaks .");
+//     }
+// }
+
+--------------------------------------------------------------------------------
+Pattern Matching for switch: betterified traditional switch. just a syntactical sugar.
+public static void main(String[] args) {
+       Scanner sc = new Scanner(System.in);
+       String in = sc.next();
+       
+       String res = switch(in) {
+           case "Saturday","Sunday" -> "Cricket";
+           case "Monday" -> "Study & Office";
+           case "Tuesday" -> "Temple";
+           default ->  "Office";
+       };
+       System.out.println(res);
+   }
+   --------------------------------------------------------------------------------
+   Records(Record classes) :
+   Record classes in Java are a special type of class that automatically generate boilerplate code like:
+
+Constructors
+Getters
+equals() and hashCode()
+toString()
+They are primarily used for immutable data models where the focus is on storing and retrieving data rather than modifying it.
+syntax :
+public record Person(String name, int age) { }
+
+--------------------------------------------------------------------------------
+Text Block : start and end with """. for  Better readability amd can print multi line statements.
+syntax:
+ 
+public static void main(String[] args) {
+       String json = 
+            """{
+                "name": "Alice",
+                "age": 30
+            };""'
+        System.out.println(json);
+   }
+
+
+
